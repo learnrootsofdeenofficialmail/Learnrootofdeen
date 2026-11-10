@@ -1,1 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roots of Deen | Personal Islamic Learning Hub</title>
+  <meta name="description" content="Roots of Deen — a self-paced, premium Islamic learning hub for Quran, Hadith, Fiqh and Masail." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
 
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <div class="brand-mark">&#9770;</div>
+      <div>Roots of Deen<small>Learning Hub</small></div>
+    </a>
+    <nav class="nav-links">
+      <a href="#principles">Usool</a>
+      <a href="#tracks">Learning</a>
+      <a href="#daily">Aaj Ka Ayat</a>
+      <a href="#notes">Notes</a>
+      <a href="#follow">Follow</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-sm btn-ghost" href="admin/" style="font-size:0.78rem;">Admin</a>
+      <a class="btn btn-primary btn-sm" href="#tracks">Shuru Karein</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="arabic-hero">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ</div>
+      <span class="eyebrow">&#9679; Self-paced &middot; Bina class ke</span>
+      <h1>Deen ko <span class="grad">apni raftaar</span> se seekhein</h1>
+      <p class="lead">Quran, Hadith, Fiqh aur Masail ka ek personal learning hub. Koi fixed syllabus nahi, koi zabardasti nahi. Aap jo chahein, jab chahein, jitna chahein seekh sakte hain, aur har lesson ke saath sahi sources se recheck bhi kar sakte hain.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#tracks">Learning Path Dekhein &rarr;</a>
+        <a class="btn btn-ghost" href="#follow">Instagram Par Judein</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>4</b><span>Learning tracks</span></div>
+        <div class="stat"><b>12</b><span>Structured lessons</span></div>
+        <div class="stat"><b>0%</b><span>Apni raftaar, free</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRINCIPLES -->
+  <section id="principles">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="tag">Hamara Usool</div>
+        <h2>Ilm ko samajhne ka sahi raasta</h2>
+        <p>Teen bunyadi usool jin par ye hub khada hai.</p>
+      </div>
+      <div class="principles">
+        <div class="card">
+          <div class="icon">&#128218;</div>
+          <h3>Asal ilm, aasan zubaan</h3>
+          <p>Mushkil ilmi baatein saaf aur seedhi zubaan mein, misalon ke saath, taake samajh aasan ho.</p>
+        </div>
+        <div class="card">
+          <div class="icon">&#9201;</div>
+          <h3>Koi pressure nahi</h3>
+          <p>Na time table, na exam. Aap ek lesson ke baad ruk sakte hain aur baad mein wapas aa sakte hain.</p>
+        </div>
+        <div class="card">
+          <div class="icon">&#128279;</div>
+          <h3>Recheck ka tareeqa</h3>
+          <p>Har lesson ke end mein trusted sources diye gaye hain taake aap khud tasdeeq kar sakein.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TRACKS -->
+  <section id="tracks">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="tag">Personal Learning Path</div>
+        <h2>Apna track chunein</h2>
+        <p>Har track ke lessons kholen, padhen aur complete karke tick karein. Progress is device par save hoti hai.</p>
+      </div>
+
+      <div class="track-tabs" id="tabs"></div>
+
+      <div class="track-meta">
+        <div>
+          <h3 id="trackTitle"></h3>
+          <p id="trackDesc"></p>
+        </div>
+        <div style="min-width:240px">
+          <div class="progress-track"><div class="progress-fill" id="trackFill"></div></div>
+          <div class="small-muted" id="trackCount"></div>
+        </div>
+      </div>
+
+      <div class="lessons" id="lessonList"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DAILY -->
+  <section id="daily">
+    <div class="wrap">
+      <div class="daily">
+        <div class="tag" style="color:var(--cyan);font-weight:700;letter-spacing:1.5px;font-size:.8rem;text-transform:uppercase;margin-bottom:18px">Aaj Ka Ayat</div>
+        <div class="arabic-hero">رَبِّ زِدْنِي عِلْمًا</div>
+        <p class="trans">"Aur kaho: Aye mere Rab, mera ilm barha de."</p>
+        <div class="ref">Surah Taha 20:114</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- NOTES -->
+  <section id="notes">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="tag">Study Notes</div>
+        <h2>Shuru karne se pehle yaad rakhein</h2>
+        <p>Chhote practical tips jo har student ke kaam aayen.</p>
+      </div>
+      <div class="notes-grid">
+        <div class="card">
+          <h3>Ek waqt mein ek cheez</h3>
+          <ul>
+            <li>Ek lesson ko 2 se 3 baar padhein, phir aage badhein.</li>
+            <li>Roz 15 se 20 minute bhi kaafi hain agar consistent hon.</li>
+            <li>Jo samajh na aaye use notebook mein likh lein.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Sources ka adab</h3>
+          <ul>
+            <li>Quran ka tarjuma aur tafseer alag alag hote hain, dono dekhein.</li>
+            <li>Hadees ki sehat (sanad) ke liye hadees ki kitab ke muhaqqiq ka hawala dekhein.</li>
+            <li>Masle mein apne maslak ya kisi qualified aalim se pooch lein.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FOLLOW -->
+  <section id="follow" class="follow">
+    <div class="wrap">
+      <div class="follow-box">
+        <div class="icon" style="margin:0 auto 18px">&#128241;</div>
+        <h2 style="font-size:1.9rem;font-weight:800">Roots of Deen ke saath judein</h2>
+        <p>Roz ki reminders, chhote lessons aur naye content ke liye Instagram par follow karein.</p>
+        <a class="btn btn-primary" href="https://instagram.com/YOUR_INSTAGRAM_HANDLE" target="_blank" rel="noopener">@YOUR_INSTAGRAM_HANDLE</a>
+      </div>
+      <div class="disclaimer">
+        Note: Fiqh aur masail ke mu'amlaat mein apne maslak ke kisi qualified aalim ya mustanad ulama se zaroor rujoo karein. Ye hub sirf ilm ki rehnumai ke liye hai.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Roots of Deen. Ilm ki roshni, sab ke liye.</div>
+    <button class="reset-btn" id="resetBtn">Progress reset karein</button>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
