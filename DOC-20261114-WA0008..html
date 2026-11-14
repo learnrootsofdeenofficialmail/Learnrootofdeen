@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║           BREW & BLISS — COFFEE HOUSE APP                   ║
+  ║           index.html — Main Entry Point                     ║
+  ║                                                             ║
+  ║  This is the single HTML file that acts as the app shell.   ║
+  ║  All "screens" are <section> elements shown/hidden via JS.  ║
+  ║  CSS lives in css/styles.css                                ║
+  ║  Logic lives in js/app.js, js/cart.js, js/data.js          ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Brew & Bliss Coffee House — Order coffee, earn rewards." />
+  <title>Brew &amp; Bliss — Coffee House</title>
+
+  <!-- Google Fonts: Playfair Display (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tabler Icons — open-source icon set -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"
+  />
+
+  <!-- Our main stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <!-- ═══════════════════════════════════════════════════════════
+       APP SHELL
+       The .shell div acts as the mobile phone container.
+       Max-width is capped at 390px to simulate a phone screen.
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="shell" role="main">
+
+    <!-- ── SCREEN: HOME ─────────────────────────────────────── -->
+    <section class="screen active" id="screen-home" aria-label="Home">
+
+      <!-- Top navigation bar -->
+      <header class="topbar" id="home-topbar">
+        <button class="icon-btn" onclick="UI.toast('Menu coming soon!')" aria-label="Open menu">
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
+        </button>
+
+        <div class="brand">
+          <i class="ti ti-coffee brand-icon" aria-hidden="true"></i>
+          <div class="brand-name">Brew &amp; Bliss</div>
+          <div class="brand-sub">— COFFEE HOUSE —</div>
+        </div>
+
+        <div class="topbar-icons">
+          <button class="icon-btn" onclick="UI.toast('No new notifications')" aria-label="Notifications">
+            <i class="ti ti-bell" aria-hidden="true"></i>
+            <span class="badge" aria-label="3 notifications">3</span>
+          </button>
+          <button class="icon-btn" onclick="Nav.go('cart')" aria-label="View cart">
+            <i class="ti ti-shopping-cart" aria-hidden="true"></i>
+            <span class="badge" id="cart-badge" aria-live="polite">0</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable page content -->
+      <div class="scroll-body" onscroll="UI.handleScroll(this, 'home-topbar')">
+
+        <!-- Search bar -->
+        <div class="search-wrap">
+          <div class="search-bar" role="search">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input
+              type="text"
+              placeholder="Search coffee, food &amp; more..."
+              aria-label="Search menu"
+              oninput="Search.liveSearch(this.value)"
+            />
+            <i class="ti ti-adjustments-horizontal" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <!-- Hero banner — auto-slides every 3.6s -->
+        <div class="hero-wrap">
+          <div class="hero" id="hero-banner">
+            <p class="hero-eyebrow" id="hero-eyebrow">Good Coffee</p>
+            <h2 id="hero-heading">Good Vibes</h2>
+            <p class="hero-body" id="hero-body">Freshly brewed coffee made to brighten your day.</p>
+            <button class="hero-btn" onclick="Nav.go('menu')" aria-label="Order now">
+              ORDER NOW <i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </button>
+            <span class="hero-deco" id="hero-deco" aria-hidden="true">☕</span>
+            <!-- Dot indicators for each slide -->
+            <div class="hero-dots" role="tablist" aria-label="Hero slides">
+              <button class="dot active" onclick="Slider.go(0)" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+              <button class="dot" onclick="Slider.go(1)" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+              <button class="dot" onclick="Slider.go(2)" role="tab" aria-selected="false" aria-label="Slide 3"></button>
+              <button class="dot" onclick="Slider.go(3)" role="tab" aria-selected="false" aria-label="Slide 4"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category filter chips -->
+        <div class="cats-wrap">
+          <div class="cats" id="cats-row" role="list" aria-label="Category filter">
+            <!-- Generated by JS: Filter.renderCats() -->
+          </div>
+        </div>
+
+        <!-- Popular picks horizontal scroll -->
+        <div class="sec-header">
+          <span class="sec-title">Popular Picks</span>
+          <button class="view-all" onclick="Nav.go('menu')">
+            View All <i class="ti ti-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+        <!-- Product cards injected here by JS: Render.homeProducts() -->
+        <div class="products-row" id="home-products" role="list"></div>
+
+        <!-- Seasonal featured banner -->
+        <div class="featured-banner" onclick="Nav.go('menu')" role="button" tabindex="0">
+          <div class="fb-left">
+            <h4>Seasonal Special</h4>
+            <p>Try our limited Pumpkin Spice Latte &amp; Cinnamon Chai this autumn</p>
+          </div>
+          <span class="fb-right" aria-hidden="true">🍂</span>
+        </div>
+
+        <!-- Weekend promo banner -->
+        <div class="promo-wrap">
+          <div class="promo" onclick="Promo.apply('WEEKEND20')" role="button" tabindex="0">
+            <div>
+              <p class="promo-tag">WEEKEND SPECIAL</p>
+              <p class="promo-pct">20% OFF</p>
+              <p class="promo-desc">On all coffee orders</p>
+              <button class="promo-btn" onclick="event.stopPropagation(); Nav.go('cart')">
+                ORDER NOW <i class="ti ti-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="promo-circle" aria-hidden="true">
+              <span>20%</span><span>OFF</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /scroll-body -->
+    </section><!-- /screen-home -->
+
+
+    <!-- ── SCREEN: MENU ──────────────────────────────────────── -->
+    <section class="screen" id="screen-menu" aria-label="Menu">
+      <header class="topbar">
+        <div style="width:36px"></div>
+        <div class="brand"><div class="brand-name" style="font-size:16px">Menu</div></div>
+        <button class="icon-btn" onclick="Nav.go('cart')" aria-label="View cart">
+          <i class="ti ti-shopping-cart" aria-hidden="true"></i>
+          <span class="badge" id="menu-cart-badge">0</span>
+        </button>
+      </header>
+      <div class="scroll-body">
+        <div class="search-wrap">
+          <div class="search-bar" role="search">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input type="text" placeholder="Search menu..." aria-label="Search menu items" oninput="Search.menuSearch(this.value)" />
+            <i class="ti ti-adjustments-horizontal" aria-hidden="true"></i>
+          </div>
+        </div>
+        <!-- Filter pills — All / Coffee / Pastries etc. -->
+        <div class="menu-filter" role="list" aria-label="Menu category filter">
+          <button class="filter-pill active" onclick="Filter.menu(this,'all')">All</button>
+          <button class="filter-pill" onclick="Filter.menu(this,'coffee')">Coffee</button>
+          <button class="filter-pill" onclick="Filter.menu(this,'pastry')">Pastries</button>
+          <button class="filter-pill" onclick="Filter.menu(this,'sandwich')">Sandwiches</button>
+          <button class="filter-pill" onclick="Filter.menu(this,'dessert')">Desserts</button>
+          <button class="filter-pill" onclick="Filter.menu(this,'drink')">Drinks</button>
+          <button class="filter-pill" onclick="Filter.menu(this,'breakfast')">Breakfast</button>
+        </div>
+        <!-- 2-column product grid injected by JS: Render.menuGrid() -->
+        <div class="menu-grid" id="menu-grid" role="list"></div>
+      </div>
+    </section><!-- /screen-menu -->
+
+
+    <!-- ── SCREEN: CART ──────────────────────────────────────── -->
+    <section class="screen" id="screen-cart" aria-label="Cart">
+      <header class="topbar">
+        <button class="icon-btn" onclick="Nav.go('home')" style="background:transparent;border:none" aria-label="Back to home">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        </button>
+        <div class="brand"><div class="brand-name" style="font-size:16px">Your Cart</div></div>
+        <div style="width:36px"></div>
+      </header>
+
+      <!-- Cart items + summary (shown when cart has items) -->
+      <div class="scroll-body" id="cart-scroll-body">
+        <div class="cart-list" id="cart-list" role="list"></div>
+
+        <!-- Promo code input -->
+        <div class="coupon-row" id="coupon-row">
+          <input
+            class="coupon-input"
+            id="coupon-input"
+            type="text"
+            placeholder="Promo code (try WEEKEND20)"
+            aria-label="Enter promo code"
+          />
+          <button class="coupon-btn" onclick="Promo.applyFromInput()">Apply</button>
+        </div>
+
+        <!-- Order summary breakdown -->
+        <div class="cart-summary" id="cart-summary" aria-live="polite">
+          <div class="summary-row"><span>Subtotal</span><span id="sum-sub">$0.00</span></div>
+          <div class="summary-row"><span>Delivery fee</span><span>$1.99</span></div>
+          <div class="summary-row" id="disc-row" style="display:none">
+            <span>Promo discount</span>
+            <span style="color:#16a34a">-<span id="sum-disc">$0.00</span></span>
+          </div>
+          <div class="summary-row total"><span>Total</span><span id="sum-total">$0.00</span></div>
+        </div>
+
+        <!-- Place order CTA -->
+        <button class="checkout-btn" id="checkout-btn" onclick="Order.place()">
+          Place Order →
+        </button>
+      </div>
+
+      <!-- Empty state (shown when cart is empty) -->
+      <div class="empty-cart-view" id="empty-cart-view" style="display:none" aria-label="Empty cart">
+        <i class="ti ti-shopping-cart-off" aria-hidden="true"></i>
+        <h3>Your cart is empty</h3>
+        <p>Add some items to get started</p>
+        <button onclick="Nav.go('menu')">Browse Menu</button>
+      </div>
+    </section><!-- /screen-cart -->
+
+
+    <!-- ── SCREEN: ORDER CONFIRMATION ───────────────────────── -->
+    <section class="screen" id="screen-confirm" aria-label="Order confirmed">
+      <div class="scroll-body" style="padding-bottom:20px">
+        <div class="order-confirm">
+          <div class="confirm-icon" aria-hidden="true"><i class="ti ti-check"></i></div>
+          <h2 class="confirm-title">Order Placed!</h2>
+          <p class="confirm-sub" id="confirm-sub">
+            Your receipt has been emailed. Ready in 15–20 mins!
+          </p>
+          <div class="confirm-id">
+            <p>Order ID</p>
+            <h4 id="confirm-order-id">#BB-000000</h4>
+          </div>
+          <div class="confirm-actions">
+            <button onclick="Nav.go('home')">Back to Home</button>
+            <button class="primary" onclick="Nav.go('history')">View Order</button>
+          </div>
+        </div>
+      </div>
+    </section><!-- /screen-confirm -->
+
+
+    <!-- ── SCREEN: REWARDS ───────────────────────────────────── -->
+    <section class="screen" id="screen-rewards" aria-label="Rewards">
+      <header class="topbar">
+        <div style="width:36px"></div>
+        <div class="brand"><div class="brand-name" style="font-size:16px">Rewards</div></div>
+        <div style="width:36px"></div>
+      </header>
+      <div class="scroll-body">
+        <!-- Points card -->
+        <div class="rewards-card">
+          <p class="rlabel">YOUR POINTS</p>
+          <div class="points" id="points-display">1,240</div>
+          <p class="points-label">Bliss Points</p>
+          <div class="pb-bg"><div class="pb" id="points-bar" style="width:65%"></div></div>
+          <p class="ph" id="points-hint">260 more points to your next free coffee ☕</p>
+        </div>
+
+        <!-- Redeemable rewards list -->
+        <div class="sec-header"><span class="sec-title">Redeem Rewards</span></div>
+        <div class="rewards-list" id="rewards-list" role="list">
+          <!-- Injected by JS: Render.rewards() -->
+        </div>
+
+        <!-- Points history -->
+        <div class="sec-header" style="margin-top:8px"><span class="sec-title">Points History</span></div>
+        <div class="reward-history" id="reward-history" role="list">
+          <!-- Injected by JS: Render.rewardHistory() -->
+        </div>
+      </div>
+    </section><!-- /screen-rewards -->
+
+
+    <!-- ── SCREEN: PROFILE ───────────────────────────────────── -->
+    <section class="screen" id="screen-profile" aria-label="Profile">
+      <header class="topbar">
+        <div style="width:36px"></div>
+        <div class="brand"><div class="brand-name" style="font-size:16px">Profile</div></div>
+        <button class="icon-btn" onclick="UI.toast('Settings saved!')" aria-label="Settings">
+          <i class="ti ti-settings" aria-hidden="true"></i>
+        </button>
+      </header>
+      <div class="scroll-body">
+        <div class="profile-header">
+          <div class="avatar" aria-hidden="true">JD</div>
+          <div class="profile-name">Jamie Davis</div>
+          <div class="profile-email">muslemurrahaman01@gmail.com</div>
+        </div>
+
+        <!-- Live stats — updated by JS on each order -->
+        <div class="profile-stats">
+          <div class="stat-card">
+            <div class="stat-num" id="stat-orders">0</div>
+            <div class="stat-label">Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="stat-points">1,240</div>
+            <div class="stat-label">Points</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="stat-spent">$0</div>
+            <div class="stat-label">Spent</div>
+          </div>
+        </div>
+
+        <!-- Notification toggles -->
+        <div class="pref-section">
+          <p class="pref-title">PREFERENCES</p>
+          <div class="pref-toggle">
+            <span class="pref-label">Email notifications</span>
+            <button class="toggle on" onclick="UI.togglePref(this)" aria-label="Toggle email notifications"></button>
+          </div>
+          <div class="pref-toggle">
+            <span class="pref-label">Order updates via email</span>
+            <button class="toggle on" onclick="UI.togglePref(this)" aria-label="Toggle order updates"></button>
+          </div>
+          <div class="pref-toggle">
+            <span class="pref-label">Promo &amp; deals emails</span>
+            <button class="toggle off" onclick="UI.togglePref(this)" aria-label="Toggle promo emails"></button>
+          </div>
+        </div>
+
+        <!-- Account links -->
+        <div class="sec-header"><span class="sec-title">Account</span></div>
+        <div class="menu-items-list">
+          <div class="menu-row" onclick="Nav.go('history')" role="button" tabindex="0">
+            <div class="menu-row-icon"><i class="ti ti-clock-hour-4" aria-hidden="true"></i></div>
+            <span class="menu-row-label">Order history</span>
+            <div class="menu-row-right">
+              <span id="orders-count">0 orders</span>
+              <i class="ti ti-chevron-right" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="menu-row" onclick="UI.toast('Saved addresses coming soon!')" role="button" tabindex="0">
+            <div class="menu-row-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+            <span class="menu-row-label">Saved addresses</span>
+            <div class="menu-row-right"><span>Home, Work</span><i class="ti ti-chevron-right"></i></div>
+          </div>
+          <div class="menu-row" onclick="UI.toast('Payment methods coming soon!')" role="button" tabindex="0">
+            <div class="menu-row-icon"><i class="ti ti-credit-card" aria-hidden="true"></i></div>
+            <span class="menu-row-label">Payment methods</span>
+            <div class="menu-row-right"><span>Visa ••4411</span><i class="ti ti-chevron-right"></i></div>
+          </div>
+          <div class="menu-row" onclick="UI.toast('Help centre coming soon!')" role="button" tabindex="0">
+            <div class="menu-row-icon"><i class="ti ti-help-circle" aria-hidden="true"></i></div>
+            <span class="menu-row-label">Help &amp; support</span>
+            <div class="menu-row-right"><i class="ti ti-chevron-right"></i></div>
+          </div>
+        </div>
+
+        <button class="logout-btn" onclick="UI.toast('Logged out!')">Log out</button>
+      </div>
+    </section><!-- /screen-profile -->
+
+
+    <!-- ── SCREEN: ORDER HISTORY ─────────────────────────────── -->
+    <section class="screen" id="screen-history" aria-label="Order history">
+      <header class="topbar">
+        <button class="icon-btn" onclick="Nav.go('profile')" style="background:transparent;border:none" aria-label="Back to profile">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        </button>
+        <div class="brand"><div class="brand-name" style="font-size:16px">Order History</div></div>
+        <div style="width:36px"></div>
+      </header>
+      <div class="scroll-body">
+        <!-- Injected by JS: Render.orderHistory() -->
+        <div id="history-list" style="padding-top:10px"></div>
+      </div>
+    </section><!-- /screen-history -->
+
+
+    <!-- ── BOTTOM NAVIGATION BAR ─────────────────────────────── -->
+    <nav class="nav-bar" aria-label="Main navigation">
+      <button class="nav-item active" id="nav-home" onclick="Nav.go('home')" aria-label="Home">
+        <i class="ti ti-home" aria-hidden="true"></i>
+        <span>Home</span>
+      </button>
+      <button class="nav-item" id="nav-menu" onclick="Nav.go('menu')" aria-label="Menu">
+        <i class="ti ti-book-2" aria-hidden="true"></i>
+        <span>Menu</span>
+      </button>
+      <!-- Centre Order button (elevated) -->
+      <div class="nav-center-wrap" id="nav-order" onclick="Nav.go('cart')" role="button" tabindex="0" aria-label="Order">
+        <div class="nav-center"><i class="ti ti-coffee" aria-hidden="true"></i></div>
+        <span class="nav-center-label">Order</span>
+      </div>
+      <button class="nav-item" id="nav-rewards" onclick="Nav.go('rewards')" aria-label="Rewards">
+        <i class="ti ti-gift" aria-hidden="true"></i>
+        <span>Rewards</span>
+      </button>
+      <button class="nav-item" id="nav-profile" onclick="Nav.go('profile')" aria-label="Profile">
+        <i class="ti ti-user" aria-hidden="true"></i>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+    <!-- Toast notification — displayed via UI.toast() -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  </div><!-- /shell -->
+
+  <!-- ── JavaScript modules (order matters) ───────────────── -->
+  <script src="js/data.js"></script>   <!-- Menu items & rewards data -->
+  <script src="js/cart.js"></script>   <!-- Cart state & logic -->
+  <script src="js/app.js"></script>    <!-- UI, Nav, Render, Order, etc. -->
+</body>
+</html>
